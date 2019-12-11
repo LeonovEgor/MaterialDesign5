@@ -46,6 +46,5 @@ public class FruitFragment extends Fragment {
         Data data = new FruitData(getContext());
         MyAdapter myAdapter = new MyAdapter(data.getList());
         recyclerView.setAdapter(myAdapter);
-        recyclerView.addItemDecoration(new ItemDivider(Objects.requireNonNull(getContext())));
     }
 }
