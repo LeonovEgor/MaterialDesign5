@@ -8,10 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.Objects;
+
+import ru.leonov.hw.Data.Data;
+import ru.leonov.hw.Data.FruitData;
+import ru.leonov.hw.Data.MyAdapter;
+import ru.leonov.hw.Data.VegetablesData;
 
 public class VegetablesFragment extends Fragment {
 
@@ -25,10 +32,22 @@ public class VegetablesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setCaption();
+        initRecyclerView(view);
     }
 
     private void setCaption() {
         CollapsingToolbarLayout ctl = Objects.requireNonNull(getActivity()).findViewById(R.id.collapsing_toolbar_layout);
         ctl.setTitle(getActivity().getString(R.string.menu_vegetables));
+    }
+
+    private void initRecyclerView(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        recyclerView.setLayoutManager(layoutManager);
+        Data data = new VegetablesData(getContext());
+        MyAdapter myAdapter = new MyAdapter(data.getList());
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.addItemDecoration(new ItemDivider(Objects.requireNonNull(getContext())));
     }
 }

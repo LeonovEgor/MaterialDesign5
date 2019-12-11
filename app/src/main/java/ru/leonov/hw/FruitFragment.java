@@ -48,5 +48,4 @@ public class FruitFragment extends Fragment {
         recyclerView.setAdapter(myAdapter);
         recyclerView.addItemDecoration(new ItemDivider(Objects.requireNonNull(getContext())));
     }
-
 }
