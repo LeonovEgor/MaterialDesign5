@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@menu/bottom_nav_menu" />
+
         <activity
-            android:name="ru.leonov.hw.NaviDrawerActivity"
+            android:name=".NaviDrawerActivity"
             android:label="@string/title_activity_navi_drawer"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="ru.leonov.hw.MainActivity">
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -22,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
