@@ -8,18 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-import ru.leonov.hw.Data.Data;
-import ru.leonov.hw.Data.FruitData;
-import ru.leonov.hw.Data.MyAdapter;
-
 public class FruitFragment extends Fragment {
+
+    private CustomFPA pageAdapter;
+    private ViewPager mViewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +29,8 @@ public class FruitFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setCaption();
-        initRecyclerView(view);
+        initTabs();
+        //initRecyclerView(view);
     }
 
     private void setCaption() {
@@ -38,13 +38,20 @@ public class FruitFragment extends Fragment {
         ctl.setTitle(getActivity().getString(R.string.menu_fruit));
     }
 
-    private void initRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+    private void initTabs() {
+        AllFruitFragment fragment1 = AllFruitFragment.newInstance(null);
+        AppleFragment fragment2 = AppleFragment.newInstance(null);
+        PearFragment fragment3 = PearFragment.newInstance(null);
 
-        recyclerView.setLayoutManager(layoutManager);
-        Data data = new FruitData(getContext());
-        MyAdapter myAdapter = new MyAdapter(data.getList());
-        recyclerView.setAdapter(myAdapter);
+        CustomFPA pageAdapter= new CustomFPA(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+        pageAdapter.addFragment(fragment1, "Фрукты");
+        pageAdapter.addFragment(fragment2, "Яблоки");
+        pageAdapter.addFragment(fragment3, "Груши");
+
+        mViewPager = getActivity().findViewById(R.id.viewpager);
+        mViewPager.setAdapter(pageAdapter);
+
+        TabLayout tabLayout = getActivity().findViewById(R.id.tabContainer);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 }
