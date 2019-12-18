@@ -8,6 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppThemePurple" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryGray</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGray</item>
+        <item name="colorAccent">@color/colorAccentPurple</item>
+    </style>
+
+    <style name="AppThemeBrown" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDarkGreen</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGreen</item>
+        <item name="colorAccent">@color/colorAccentRed</item>
+    </style>
+
+
     <style name="MarginView" parent="AppTheme">
         <item name="android:layout_margin">8dp</item>
     </style>
