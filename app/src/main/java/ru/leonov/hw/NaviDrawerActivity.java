@@ -2,6 +2,7 @@ package ru.leonov.hw;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +19,17 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class NaviDrawerActivity extends AppCompatActivity {
 
+    private int themeNumber;
+
     private AppBarConfiguration mAppBarConfiguration;
+    public static final String THEME_TAG = "THEME_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setMyTheme(savedInstanceState);
+
         setContentView(R.layout.activity_navi_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,6 +58,25 @@ public class NaviDrawerActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, drawer);
     }
 
+    private void setMyTheme(Bundle savedInstanceState) {
+        if(savedInstanceState != null){
+
+            themeNumber = savedInstanceState.getInt(THEME_TAG);
+
+            switch (themeNumber) {
+                case 0:
+                    setTheme(R.style.AppTheme);
+                    break;
+                case 1:
+                    setTheme(R.style.AppThemePurple);
+                    break;
+                case 2:
+                    setTheme(R.style.AppThemeBrown);
+                    break;
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -64,5 +90,31 @@ public class NaviDrawerActivity extends AppCompatActivity {
 
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_theme1:
+                themeNumber = 0;
+                break;
+            case R.id.action_theme2:
+                themeNumber = 1;
+                break;
+            case R.id.action_theme3:
+                themeNumber = 2;
+                break;
+
+        }
+        recreate();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(THEME_TAG, themeNumber);
     }
 }

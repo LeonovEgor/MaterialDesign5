@@ -124,5 +124,16 @@
         XXI века человек уничтожил около 50 % площадей лесов, ранее существовавших на планете. Половина лесной зоны принадлежит тропическим лесам.
         Площади, занятые деревьями с сомкнутостью крон менее 0,2—0,3, считаются редколесьем.
     </string>
+    <string name="menu_vegetables_all">Овощи</string>
+    <string name="menu_potato">Картошка</string>
+    <string name="menu_tomato">Помидоры</string>
+    <string name="action_theme1">Тема1</string>
+    <string name="action_theme2">Тема2</string>
+    <string name="action_theme3">Тема3</string>
+    <string name="button1">Button1</string>
+    <string name="button2">Button2</string>
+    <string name="button3">Button3</string>
+    <string name="button4">Button4</string>
+    <string name="button5">Button5</string>
 
 </resources>

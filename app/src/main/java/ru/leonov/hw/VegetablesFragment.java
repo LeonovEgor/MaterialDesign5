@@ -2,37 +2,43 @@ package ru.leonov.hw;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
-import ru.leonov.hw.Data.Data;
-import ru.leonov.hw.Data.FruitData;
-import ru.leonov.hw.Data.MyAdapter;
-import ru.leonov.hw.Data.VegetablesData;
+public class VegetablesFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener{
 
-public class VegetablesFragment extends Fragment {
+    private Fragment allVegetablesFragment;
+    private Fragment potatoFragment;
+    private Fragment tomatoFragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_vegetables, container, false);
+        View root = inflater.inflate(R.layout.fragment_vegetables, container, false);
+
+        setCaption();
+        setupBottomNavigationView(root);
+
+        return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setCaption();
-        initRecyclerView(view);
+        initFragment();
     }
 
     private void setCaption() {
@@ -40,13 +46,45 @@ public class VegetablesFragment extends Fragment {
         ctl.setTitle(getActivity().getString(R.string.menu_vegetables));
     }
 
-    private void initRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+    private void initFragment() {
+        allVegetablesFragment = AllVegetablesFragment.newInstance(null);
+        potatoFragment = PotatoFragment.newInstance(null);
+        tomatoFragment = TomatoFragment.newInstance(null);
 
-        recyclerView.setLayoutManager(layoutManager);
-        Data data = new VegetablesData(getContext());
-        MyAdapter myAdapter = new MyAdapter(data.getList());
-        recyclerView.setAdapter(myAdapter);
+        setFragment(allVegetablesFragment);
+    }
+
+    private void setFragment(Fragment selectedFragment) {
+        FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        FragmentTransaction fTrans = manager.beginTransaction();
+        fTrans.replace(R.id.containerFrame, selectedFragment);
+        fTrans.commit();
+    }
+
+
+    private void setupBottomNavigationView(View view) {
+        BottomNavigationView navigation = view.findViewById(R.id.bnv);
+        navigation.setOnNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment selectedFragment = null;
+
+        switch (menuItem.getItemId()) {
+            case R.id.action_vegetables_all:
+                selectedFragment = allVegetablesFragment;
+                break;
+            case R.id.action_potato:
+                selectedFragment = potatoFragment;
+                break;
+            case R.id.action_tomato:
+                selectedFragment = tomatoFragment;
+                break;
+        }
+        if (selectedFragment == null) return false;
+
+        setFragment(selectedFragment);
+        return true;
     }
 }
