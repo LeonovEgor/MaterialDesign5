@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@menu/bottom_nav_menu" />
 
         <activity
-
             android:name=".NaviDrawerActivity"
             android:label="@string/title_activity_navi_drawer"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -27,7 +28,13 @@
         </activity>
 
         <activity android:name=".MainActivity">
+
         </activity>
+
+        <activity android:name=".ButtonActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
